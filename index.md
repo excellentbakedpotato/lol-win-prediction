@@ -206,18 +206,26 @@ On the other hand, this model only uses a small set of features and doesn’t ac
 
 ## Final Model
 
-To improve on our baseline model, we introduced additional features that better capture early-game dynamics in League of Legends. We added `killdiff15`, defined as the difference between kills and deaths at 15 minutes, because teams with more kills than deaths early often control tempo and objectives. We also added `total_fights15`, defined as the sum of kills and assists at 15 minutes, because higher early fight participation often correlates with winning lanes and map pressure. While choosing these features, we were motivated by the idea that early skirmishes and team coordination play a major role in shaping the outcome of a match. While `golddiffat15` and `xpdiffat15` capture resource advantages, they do not fully reflect how actively a team is engaging in fights or whether they are trading favorably. We also included `firstblood`, since securing the first kill often signals early pressure and tempo.
+To improve on our baseline model, we introduced additional features that better capture early-game dynamics in League of Legends. In addition to the baseline features (`golddiffat15`, `xpdiffat15`, `csdiffat15`, and `side`), we added `firstblood`, `firstdragon`, and `firstherald`. These features were selected because they reflect early-game events that are not fully captured by resource-based statistics alone.
 
-Using these features along with the original baseline variables (`golddiffat15`, `xpdiffat15`, `csdiffat15`, and `side`), we trained a Random Forest classifier. We chose this model because it can capture nonlinear relationships and interactions between features, which are likely present in a complex environment like professional matches. To tune the model, we performed a grid search over the hyperparameters `max_depth` (3, 5, 8, 12) and `n_estimators` (100, 200), using 5-fold cross-validation with `accuracy` as the evaluation metric. The best-performing combination was `max_depth = 5` and `n_estimators = 200`. As with the baseline model, all preprocessing steps (including one-hot encoding for `side`) were implemented within a single `sklearn` `Pipeline` to ensure consistency between training and test data.
+Specifically, `firstblood` captures which team secured the earliest kill, which often indicates early pressure and lane advantage. `firstdragon` and `firstherald` capture early objective control, which reflects map pressure and team coordination. While `golddiffat15`, `xpdiffat15`, and `csdiffat15` measure resource advantages, these additional features provide insight into how teams convert early opportunities into strategic advantages.
+
+For the final model, we used a logistic regression classifier implemented within a single `sklearn` Pipeline. Quantitative features were standardized using a `StandardScaler`, binary features (`firstblood`, `firstdragon`, `firstherald`) were passed through without transformation, and the categorical feature `side` was one-hot encoded. We performed hyperparameter tuning using `GridSearchCV` with 5-fold cross-validation, searching over the regularization strength `C`, penalty type (`l1`, `l2`), and class weighting. The best-performing configuration used:
+
+`C = 0.01`  
+`penalty = l2`  
+`class_weight = None`
+
+On the held-out test set, the final model achieved an accuracy of 0.7497 and an F1-score of 0.7485, compared to the baseline model’s accuracy of 0.7406 and F1-score of 0.7402. This represents a modest but meaningful improvement.
+
+This improvement suggests that incorporating early-game objective control features helps the model better capture important aspects of match dynamics. While resource differences already provide strong predictive power, adding features related to early objectives improves the model’s ability to generalize to unseen matches.
 
 ### Model Performance Comparison
 
-| Model          | Accuracy | F1-score |
-|----------------|---------|----------|
-| Baseline       | 0.7406  | 0.7402   |
-| Random Forest  | 0.7380  | 0.7381   |
-
-Although the Random Forest model does not outperform the baseline numerically, it incorporates features that are more directly tied to early-game decision-making and team interactions. This makes the model more aligned with the underlying data-generating process, even if the measurable improvement is small. We believe our result suggests that while early-game resource differences already capture a large portion of the predictive signal, adding more detailed combat-related features and increasing model complexity does not necessarily lead to better performance. However, the final model still provides a more flexible representation of the game dynamics and demonstrates a thoughtful attempt to improve upon the baseline through feature engineering and hyperparameter tuning.
+| Model       | Accuracy | F1-Score |
+|------------|---------|----------|
+| Baseline   | 0.7406  | 0.7402   |
+| Final Model| 0.7497  | 0.7485   |
 
 ### Confusion Matrix
 
