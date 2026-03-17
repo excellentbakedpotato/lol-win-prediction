@@ -234,33 +234,32 @@ This improvement suggests that incorporating early-game objective control featur
 
 ## Fairness Analysis
 
-To evaluate the fairness of our final model, we compared its performance across two groups: teams on Blue side (Group X) and teams on Red side (Group Y).  
+To evaluate the fairness of our final model, we compared its performance across two groups: teams on `Blue` side (Group X) and teams on `Red` side (Group Y).  
 
 We used `precision` as our evaluation metric, since it measures how often the model’s predicted wins are actually correct. This is useful because we want to understand whether the model is more reliable for one group when it predicts a win.
 
 ### Hypotheses
 
-- **Null hypothesis (H₀):** The model is fair with respect to `side`. The `precision` for Blue-side and Red-side teams is the same, and any observed difference is due to random chance.  
-- **Alternative hypothesis (H₁):** The model is not fair. The `precision` differs between Blue-side and Red-side teams.
+- Null hypothesis (H₀): The model is fair with respect to `side`. The `precision` for Blue-side and Red-side teams is the same, and any observed difference is due to random chance.  
+- Alternative hypothesis (H₁): The model is not fair. The `precision` differs between Blue-side and Red-side teams.
 
 As our test statistic, we used the difference in `precision` between the two groups (`Blue-side precision` minus `Red-side precision`). We set a significance level of 0.05.
 
 ### Observed Data
 
-- `Blue-side precision`: 0.7612  
-- `Red-side precision`: 0.7131  
-- Observed difference: 0.0480  
+- `Blue-side precision`: 0.7687  
+- `Red-side precision`: 0.7332  
+- Observed difference: 0.0355  
 
-We then performed a permutation test with 1000 permutations by randomly shuffling the `side` labels and recomputing the difference in `precision` each time. This produced a p-value of 0.0110.
+We performed a permutation test with 1000 permutations by randomly shuffling the `side` labels and recomputing the difference in `precision` each time. This produced a p-value of 0.0630.
 
-Since the p-value is less than 0.05, we reject the null hypothesis. This provides evidence that the model’s `precision` differs across the two groups. In particular, the model appears to perform better for Blue-side teams than for Red-side teams under this metric.
-
-While this does not prove that the model is inherently biased, it suggests that its performance is not equal across groups. This may be due to underlying differences in how games are played or structured depending on `side`.
+Since the p-value is greater than 0.05, we fail to reject the null hypothesis. This suggests that there is not sufficient evidence to conclude that the model’s `precision` differs significantly between Blue-side and Red-side teams. While there is a small observed difference, it may be due to random variation rather than systematic bias.
 
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
 
   <div style="flex: 1; min-width: 300px;">
     <iframe src="assets/plots/precision.html" width="100%" height="400" style="border:none;"></iframe>
-    <p style="text-align:center;">Gamelength with Golddiffat25 missing and not missing</p>
+    <p style="text-align:center;">Permutation test of precision by side</p>
   </div>
+
 </div>
