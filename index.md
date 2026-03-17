@@ -174,5 +174,31 @@ We evaluate models using `accuracy` and `F1-score`. `Accuracy` is easy to interp
 At the time of prediction, we would know only early-game information such as `golddiffat15`, `xpdiffat15`, `csdiffat15`, `side`, and `firstblood`, so we restrict features to variables available by 15 minutes.
 
 ## Baseline Model
+
+We built a logistic regression classifier to predict match outcomes using early-game features. The model was implemented in a single `sklearn` Pipeline that handles both preprocessing and training.
+
+### Features
+
+| Feature        | Type         | Description                                          | Encoding                          |
+|---------------|-------------|------------------------------------------------------|----------------------------------|
+| `golddiffat15` | Quantitative | Gold difference between the team and opponent at 15 minutes | Standardized (mean 0, SD 1)      |
+| `xpdiffat15`   | Quantitative | Experience point difference at 15 minutes          | Standardized                      |
+| `csdiffat15`   | Quantitative | Creep score difference at 15 minutes               | Standardized                      |
+| `side`         | Nominal      | The team’s side (blue or red)                       | One-hot encoded                   |
+
+The quantitative features (`golddiffat15`, `xpdiffat15`, `csdiffat15`) were standardized using a `StandardScaler` so that they are all on the same scale. This helps logistic regression train more reliably. The categorical feature `side` was one-hot encoded to convert it into a numeric format the model can use.  
+All preprocessing was handled using a `ColumnTransformer`, and combined with the model in a single `Pipeline`, so the exact same transformations are applied to both training and test data.
+
+### Model Evaluation
+
+We evaluated the model on a held-out test set (25%) to measure how well it generalizes:
+- **Accuracy:** 0.7406  
+- **F1 Score:** 0.7402  
+
+The model correctly predicts match outcomes about 74% of the time on the held-out test set, which suggests it generalizes reasonably well beyond the training data. The F1-score is very similar to accuracy, suggesting the model performs consistently across both wins and losses.  
+
+This is substantially better than random guessing (50%), indicating that early-game features contain meaningful predictive signals. We believe the performance of this baseline model is generally strong. Even with just a few early-game features, the model is able to capture a meaningful signal about who will win.  
+On the other hand, this model only uses a small set of features and doesn’t account for other early-game factors like `firstblood` or team activity in fights. Additionally, logistic regression assumes a linear relationship between the features and the log-odds of winning, which may not fully capture the complexity of real matches.
+
 ## Final Model
 ## Fairness Analysis
