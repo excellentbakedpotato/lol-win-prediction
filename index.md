@@ -81,6 +81,25 @@ For bivariate analyses, we explored relationships between each of these columns 
 
 </div>
 
+## Average Gold Difference by League and Side
+
+We summarized average gold difference at 15 minutes across leagues and sides using a pivot table.
+
+This table shows the average early-game gold advantage for blue and red sides in each league, allowing us to identify patterns such as:
+
+- Certain leagues having higher average gold advantages, possibly due to differences in professional playstyles.
+- Differences between blue and red side performance, which may influence strategic planning or draft advantages.
+
+| League | Blue Side Avg Gold Diff | Red Side Avg Gold Diff | Blue Advantage |
+|--------|------------------------|-----------------------|----------------|
+| EWC    | 0.67                   | 0.33                  | 0.33           |
+| IC     | 0.64                   | 0.36                  | 0.29           |
+| NLC    | 0.60                   | 0.40                  | 0.20           |
+| HW     | 0.60                   | 0.40                  | 0.19           |
+| HC     | 0.59                   | 0.41                  | 0.18           |
+
+The first 5 rows of the pivot table are shown above. The full table contains 44 rows.
+
 ## Missingness Analysis
 
 ## Model
