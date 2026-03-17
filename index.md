@@ -6,7 +6,7 @@ title: Home
 ## Introduction
 League of Legends (LoL) is a multiplayer online battle arena video game developed and published by Riot Games. Players pilot “Champions” battle in teams of 5 each, in a player-vs-player format. League of Legends is the world's largest esport, with several large international tournaments. We are working with a dataset of professional LoL matches developed by Oracle’s Elixir. In this project, we only used data for matches that took place in 2025. Each row represents a single match played by a summoner, including key in-game metrics such as gold earned, kills, assists, and objective control at various points in the game.
 The focus of this project is on the following question:
-Can we predict whether a team will win a match using only statistics available at the 15-minute mark?
+Can early-game 15-minute statistics predict who wins a professional League of Legends match?
 
 This question is important because early-game performance often drives match outcomes, and identifying predictive factors early can help teams make strategic decisions during live play. For fans and analysts, understanding early indicators of victory makes the game more engaging and provides insight into the mechanics of competitive play.
 
