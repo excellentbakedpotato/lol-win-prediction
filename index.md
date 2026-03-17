@@ -40,6 +40,10 @@ These columns capture early-game performance and objective control, which are cr
 We started our cleaning process by removing all columns corresponding to individual players and only keeping team data. We also filtered out any columns where the data was incomplete. We then kept the following columns to use as part of our preliminary analysis: `league`, `patch`, `side`, `firstPick`, `result`, `firstblood`, `firstdragon`, `firstherald`, `firsttower`, `firstmidtower`, `firsttothreetowers`, `golddiffat15`, `xpdiffat15`, `csdiffat15`, `killsat15`, `assistsat15`, `deathsat15`. 
 Most of these columns contain important early-game metrics to predict `result`, and we kept the `league`, `patch` and `side` columns to check if these categorical variables had any influence on `results`.
 
+### Early-Game Match Data
+
+<iframe src="assets/plots/early_lol_table.html" width="100%" height="500" style="border:none;"></iframe>
+
 ### Univariate Analysis
 
 We began our univariate analysis by examining distributions of `golddiffat15` and `killsat15`. These columns were selected because:
