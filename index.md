@@ -130,17 +130,33 @@ We computed two test statistics:
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
 
   <div style="flex: 1; min-width: 300px;">
-    <iframe src="assets/plots/golddiff_win.html" width="100%" height="400" style="border:none;"></iframe>
-    <p style="text-align:center;">Gold Difference vs. Win at 15 Minutes</p>
+    <iframe src="assets/plots/gamelength_dep.html" width="100%" height="400" style="border:none;"></iframe>
+    <p style="text-align:center;">Gamelength with Golddiffat25 missing and not missing</p>
   </div>
 
   <div style="flex: 1; min-width: 300px;">
-    <iframe src="assets/plots/kills_win.html" width="100%" height="400" style="border:none;"></iframe>
-    <p style="text-align:center;">Kills vs. Win at 15 minutes</p>
+    <iframe src="assets/plots/gl_obs_test.html" width="100%" height="400" style="border:none;"></iframe>
+    <p style="text-align:center;">Gamelength test statistic distribution and observed statistic</p>
   </div>
-
+  
 </div>
 
+For `gamelength`, the observed mean difference of 604.1 seconds between matches with missing `golddiffat25` and those without is highly significant (p < 0.001). This indicates that shorter matches are more likely to have missing `golddiffat25` values, suggesting that missingness is not MCAR, and may be MAR with respect to game length. 
+These results suggest that missingness in `golddiffat25` is highly likely to be MAR, dependent on observable numeric variables like `gamelength` but unrelated to categorical variables like `side`.
+
+The orange histogram (matches with missing `golddiffat25`) is shifted slightly toward shorter games compared to the blue histogram (matches where `golddiffat25` is present). Shorter games seem to be more prone to missing mid-game gold differences.
+
+The histogram shows the null distribution of absolute mean differences under randomly permuted missingness indicators. The dashed line marks the observed difference of 604.1 seconds, which is quite far away from the rest of the null distribution, which implies a statistically significant association between missingness and game length.
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+  
+  <div style="flex: 1; min-width: 300px;">
+      <iframe src="assets/plots/side_obs_test.html" width="100%" height="400" style="border:none;"></iframe>
+      <p style="text-align:center;">Side test statistic distribution and observed statistic</p>
+  </div>
+</div>
+
+For `side`, the observed TVD of 0 with a p-value of 1.0 shows that the distribution of blue/red sides is identical for missing and non-missing rows, meaning that `side` does not influence missingness. This can also be seen in the graph above
 
 ## Model
 
