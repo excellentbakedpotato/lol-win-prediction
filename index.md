@@ -40,7 +40,7 @@ These columns capture early-game performance and objective control, which are cr
 We started our cleaning process by removing all columns corresponding to individual players and only keeping team data. We also filtered out any columns where the data was incomplete. We then kept the following columns to use as part of our preliminary analysis: `league`, `patch`, `side`, `firstPick`, `result`, `firstblood`, `firstdragon`, `firstherald`, `firsttower`, `firstmidtower`, `firsttothreetowers`, `golddiffat15`, `xpdiffat15`, `csdiffat15`, `killsat15`, `assistsat15`, `deathsat15`. 
 Most of these columns contain important early-game metrics to predict `result`, and we kept the `league`, `patch` and `side` columns to check if these categorical variables had any influence on `results`.
 
-## Univariate Analysis
+### Univariate Analysis
 
 We began our univariate analysis by examining distributions of `golddiffat15` and `killsat15`. These columns were selected because:
 
@@ -63,7 +63,7 @@ We began our univariate analysis by examining distributions of `golddiffat15` an
 
 We noticed that the `golddiffat15` plot looked almost normally distributed, while the `killsat15` histogram is heavily skewed to the right, which is understandable, as it may be rare for teams to get a very high number of kills this early in the game.
 
-## Bivariate Analysis
+### Bivariate Analysis
 
 For bivariate analyses, we explored relationships between each of these columns and the `result` variable (win/loss). This step helped us assess which early-game metrics are most predictive of success and informed feature selection for later modeling.
 
@@ -81,7 +81,7 @@ For bivariate analyses, we explored relationships between each of these columns 
 
 </div>
 
-## Average Gold Difference by League and Side
+### Average Gold Difference by League and Side
 
 We summarized average gold difference at 15 minutes across leagues and sides using a pivot table.
 
@@ -101,6 +101,46 @@ This table shows the average early-game gold advantage for blue and red sides in
 The first 5 rows of the pivot table are shown above. The full table contains 44 rows.
 
 ## Missingness Analysis
+
+### MNAR Analysis
+
+One column that is likely MNAR in this dataset is `golddiffat25` wihch represents the gold difference between teams at the 25-minute mark of a match. In the dataset, this column is sometimes missing because some games end before 25 minutes which means the statistic cannot be recorded. This missingness comes from the data generating process of League of Legends matches. If a team wins extremely quickly (e.g. through a dominant early-game strategy), the match could possibly conclude before the 25-minute timestamp.
+
+Because of this, the missingness of `golddiffat25` likely depends on the unobserved value itself. In games that end early, the true gold difference at 25 minutes would likely be very large in magnitude whihc often strongly favors the winning team. However, since the game ends before reaching 25 minutes, that value is never observed. As a result, rows with extreme gold advantages are more likely to have missing `golddiffat25` values, suggesting the missingness depends on the value that would have been recorded.
+
+Additional data about game duration or an indicator for whether the match reached 25 minutes could help explain this missingness. Conditioning on these additional variables would make the missingness more explainable using observed data which might make the column Missing At Random (MAR) rather than MNAR.  
+
+
+### Missingness Dependency
+
+To understand whether missing values in `golddiffat25` are related to other observed features, specifically whether this qualifies as Missing At Random (MAR), we conducted permutation tests on relevant columns.
+
+We considered the following features:
+
+- `gamelength` – a numeric variable representing the duration of the match in seconds.
+- `side` – a categorical variable indicating whether the team was on the blue or red side.
+
+These columns were logical choices because the presence of NaN values in `golddiffat25` appears to depend on `gamelength` (matches that end early cannot have a `golddiffat25` value) but not necessarily on `side`.
+
+We computed two test statistics:
+
+1. Absolute difference in means for the numeric column `gamelength` between rows where `golddiffat25` is missing versus present.  
+2. Total Variation Distance (TVD) for the categorical column `side` to quantify differences in the distribution between rows with missing and non-missing `golddiffat25` values.
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+  <div style="flex: 1; min-width: 300px;">
+    <iframe src="assets/plots/golddiff_win.html" width="100%" height="400" style="border:none;"></iframe>
+    <p style="text-align:center;">Gold Difference vs. Win at 15 Minutes</p>
+  </div>
+
+  <div style="flex: 1; min-width: 300px;">
+    <iframe src="assets/plots/kills_win.html" width="100%" height="400" style="border:none;"></iframe>
+    <p style="text-align:center;">Kills vs. Win at 15 minutes</p>
+  </div>
+
+</div>
+
 
 ## Model
 
