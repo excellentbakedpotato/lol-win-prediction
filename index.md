@@ -201,4 +201,23 @@ This is substantially better than random guessing (50%), indicating that early-g
 On the other hand, this model only uses a small set of features and doesn’t account for other early-game factors like `firstblood` or team activity in fights. Additionally, logistic regression assumes a linear relationship between the features and the log-odds of winning, which may not fully capture the complexity of real matches.
 
 ## Final Model
+
+To improve on our baseline model, we introduced additional features that better capture early-game dynamics in League of Legends. We added `killdiff15`, defined as the difference between kills and deaths at 15 minutes, because teams with more kills than deaths early often control tempo and objectives. We also added `total_fights15`, defined as the sum of kills and assists at 15 minutes, because higher early fight participation often correlates with winning lanes and map pressure. While choosing these features, we were motivated by the idea that early skirmishes and team coordination play a major role in shaping the outcome of a match. While `golddiffat15` and `xpdiffat15` capture resource advantages, they do not fully reflect how actively a team is engaging in fights or whether they are trading favorably. We also included `firstblood`, since securing the first kill often signals early pressure and tempo.
+
+Using these features along with the original baseline variables (`golddiffat15`, `xpdiffat15`, `csdiffat15`, and `side`), we trained a Random Forest classifier. We chose this model because it can capture nonlinear relationships and interactions between features, which are likely present in a complex environment like professional matches. To tune the model, we performed a grid search over the hyperparameters `max_depth` (3, 5, 8, 12) and `n_estimators` (100, 200), using 5-fold cross-validation with `accuracy` as the evaluation metric. The best-performing combination was `max_depth = 5` and `n_estimators = 200`. As with the baseline model, all preprocessing steps (including one-hot encoding for `side`) were implemented within a single `sklearn` `Pipeline` to ensure consistency between training and test data.
+
+### Model Performance Comparison
+
+| Model          | Accuracy | F1-score |
+|----------------|---------|----------|
+| Baseline       | 0.7406  | 0.7402   |
+| Random Forest  | 0.7380  | 0.7381   |
+
+Although the Random Forest model does not outperform the baseline numerically, it incorporates features that are more directly tied to early-game decision-making and team interactions. This makes the model more aligned with the underlying data-generating process, even if the measurable improvement is small. We believe our result suggests that while early-game resource differences already capture a large portion of the predictive signal, adding more detailed combat-related features and increasing model complexity does not necessarily lead to better performance. However, the final model still provides a more flexible representation of the game dynamics and demonstrates a thoughtful attempt to improve upon the baseline through feature engineering and hyperparameter tuning.
+
+### Confusion Matrix
+
+<iframe src="assets/plots/cm.html" width="600" height="500" style="border:none;"></iframe>
+
+
 ## Fairness Analysis
