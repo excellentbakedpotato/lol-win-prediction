@@ -32,7 +32,7 @@ The dataset had 120636 rows and 165 columns, of which, we used:
 | `assistsat15`        | Number of assists the team had at 15 minutes.                                                            |
 | `deathsat15`         | Number of deaths the team had at 15 minutes.                                                             |
 
-Each 'gameid' corresponds to up to 12 rows – one for each of the 5 players on both teams and 2 containing summary data for the two teams.
+Each `gameid` corresponds to up to 12 rows – one for each of the 5 players on both teams and 2 containing summary data for the two teams.
 These columns capture early-game performance and objective control, which are crucial for predicting match outcomes. By focusing on the first 15 minutes of the game, we aim to identify which metrics most strongly indicate victory, providing insights for players, coaches, analysts, and fans alike.
 
 ## Data Cleaning
