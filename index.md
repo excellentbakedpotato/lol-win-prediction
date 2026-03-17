@@ -37,6 +37,22 @@ These columns capture early-game performance and objective control, which are cr
 
 ## Data Cleaning
 
+We started our cleaning process by removing all columns corresponding to individual players and only keeping team data. We also filtered out any columns where the data was incomplete. We then kept the following columns to use as part of our preliminary analysis: `league`, `patch`, `side`, `firstPick`, `result`, `firstblood`, `firstdragon`, `firstherald`, `firsttower`, `firstmidtower`, `firsttothreetowers`, `golddiffat15`, `xpdiffat15`, `csdiffat15`, `killsat15`, `assistsat15`, `deathsat15`. 
+Most of these columns contain important early-game metrics to predict `result`, and we kept the `league`, `patch` and `side` columns to check if these categorical variables had any influence on `results`.
+
+## Univariate Analysis
+
+We began our univariate analysis by examining distributions of `golddiffat15` and `killsat15`. These columns were selected because:
+
+- `golddiffat15` indicates the team’s overall gold advantage early in the game, which is extremely important in LoL matches.  
+- `killsat15` captures early aggression and fighting success, which correlates with control of the map and objectives.  
+
+Histograms and summary statistics allowed us to detect outliers and verify that the data fell within reasonable ranges, consistent with professional match outcomes.
+
+## Bivariate Analysis
+
+For bivariate analyses, we explored relationships between each of these columns and the `result` variable (win/loss). This step helped us assess which early-game metrics are most predictive of success and informed feature selection for later modeling.
+
 ## Missingness Analysis
 
 ## Model
