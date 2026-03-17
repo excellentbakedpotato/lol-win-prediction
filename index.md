@@ -155,9 +155,22 @@ These results suggest that missingness in <code>golddiffat25</code> is highly li
 
 <p>For <code>side</code>, the observed TVD of 0 with a p-value of 1.0 shows that the distribution of blue/red sides is identical for missing and non-missing rows, meaning that <code>side</code> does not influence missingness. This can also be seen in the graph above.</p>
 
-
 ## Hypothesis Testing
+
+**Null Hypothesis (H₀):** Teams with a gold advantage at 15 minutes win at the same rate as teams without a gold advantage.
+
+**Alternative Hypothesis (H₁):** Teams with a gold advantage at 15 minutes win at a higher rate than teams without a gold advantage.
+
+We used the difference in win rates between the two groups as the test statistic, since the response variable `result` is binary and each group mean is therefore a win rate.  
+
+We used a significance level of 0.05 and performed a permutation test with 3000 permutations by shuffling match outcomes. The resulting p-value was 0.000333, so we reject the null hypothesis.  
+
+This provides strong evidence that teams with a gold advantage at 15 minutes tend to win more often. A permutation test is appropriate here because it directly tests whether the observed association could have arisen by chance without requiring strong distributional assumptions.
+
 ## Framing a Prediction Problem
+
+Our prediction task is to predict whether a team will win or lose a professional League of Legends match using only information available at the 15-minute mark. This is a binary classification problem, since the response variable result takes values 1 for wins and 0 for losses. We chose this target because it matches the central question of the project: whether early-game information is predictive of eventual outcomes. We evaluate models using accuracy and F1-score. Accuracy is easy to interpret as the overall fraction of correctly predicted match outcomes, while F1-score balances precision and recall and is helpful in case one type of classification error becomes more common than the other. At the time of prediction, we would know only early-game information such as gold, XP, CS, side, and first-blood status, so we restrict features to variables available by 15 minutes.
+
 ## Baseline Model
 ## Final Model
 ## Fairness Analysis
