@@ -11,6 +11,7 @@ Can early-game 15-minute statistics predict who wins a professional League of Le
 This question is important because early-game performance often drives match outcomes, and identifying predictive factors early can help teams make strategic decisions during live play. For fans and analysts, understanding early indicators of victory makes the game more engaging and provides insight into the mechanics of competitive play.
 
 The dataset had 120636 rows and 165 columns, of which, we used: 
+
 | Column               | Description                                                                                              |
 | -------------------- | -------------------------------------------------------------------------------------------------------- |
 | `league`             | Name of the professional league in which the match took place.                                           |
