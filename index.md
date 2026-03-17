@@ -51,12 +51,12 @@ We began our univariate analysis by examining distributions of `golddiffat15` an
 
   <div style="flex: 1; min-width: 300px;">
     <iframe src="assets/plots/plot_golddiff.html" width="100%" height="400" style="border:none;"></iframe>
-    <p style="text-align:center;">Gold vs Kills at 15 minutes</p>
+    <p style="text-align:center;">Histogram of Gold Difference at 15 Minutes</p>
   </div>
 
   <div style="flex: 1; min-width: 300px;">
     <iframe src="assets/plots/plot_kills.html" width="100%" height="400" style="border:none;"></iframe>
-    <p style="text-align:center;">XP vs CS at 15 minutes</p>
+    <p style="text-align:center;">Histogram of Kills at 15 minutes</p>
   </div>
 
 </div>
@@ -66,6 +66,20 @@ We noticed that the `golddiffat15` plot looked almost normally distributed, whil
 ## Bivariate Analysis
 
 For bivariate analyses, we explored relationships between each of these columns and the `result` variable (win/loss). This step helped us assess which early-game metrics are most predictive of success and informed feature selection for later modeling.
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+  <div style="flex: 1; min-width: 300px;">
+    <iframe src="assets/plots/golddiff_win.html" width="100%" height="400" style="border:none;"></iframe>
+    <p style="text-align:center;">Gold Difference vs. Win at 15 Minutes</p>
+  </div>
+
+  <div style="flex: 1; min-width: 300px;">
+    <iframe src="assets/plots/kills_win.html" width="100%" height="400" style="border:none;"></iframe>
+    <p style="text-align:center;">Kills vs. Win at 15 minutes</p>
+  </div>
+
+</div>
 
 ## Missingness Analysis
 
