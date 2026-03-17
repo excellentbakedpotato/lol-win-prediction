@@ -45,9 +45,23 @@ Most of these columns contain important early-game metrics to predict `result`, 
 We began our univariate analysis by examining distributions of `golddiffat15` and `killsat15`. These columns were selected because:
 
 - `golddiffat15` indicates the team’s overall gold advantage early in the game, which is extremely important in LoL matches.  
-- `killsat15` captures early aggression and fighting success, which correlates with control of the map and objectives.  
+- `killsat15` captures early aggression and fighting success, which correlates with control of the map and objectives.
 
-Histograms and summary statistics allowed us to detect outliers and verify that the data fell within reasonable ranges, consistent with professional match outcomes.
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+  <div style="flex: 1; min-width: 300px;">
+    <iframe src="assets/plots/plot_golddiff.html" width="100%" height="400" style="border:none;"></iframe>
+    <p style="text-align:center;">Gold vs Kills at 15 minutes</p>
+  </div>
+
+  <div style="flex: 1; min-width: 300px;">
+    <iframe src="assets/plots/plot_kills.html" width="100%" height="400" style="border:none;"></iframe>
+    <p style="text-align:center;">XP vs CS at 15 minutes</p>
+  </div>
+
+</div>
+
+We noticed that the `golddiffat15` plot looked almost normally distributed, while the `killsat15` histogram is heavily skewed to the right, which is understandable, as it may be rare for teams to get a very high number of kills this early in the game.
 
 ## Bivariate Analysis
 
