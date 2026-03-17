@@ -127,7 +127,6 @@ We computed two test statistics:
 1. Absolute difference in means for the numeric column `gamelength` between rows where `golddiffat25` is missing versus present.  
 2. Total Variation Distance (TVD) for the categorical column `side` to quantify differences in the distribution between rows with missing and non-missing `golddiffat25` values.
 
-
 <div style="display: flex; flex-wrap: wrap; gap: 20px;">
 
   <div style="flex: 1; min-width: 300px;">
@@ -140,21 +139,22 @@ We computed two test statistics:
     <p style="text-align:center;">Gamelength test statistic distribution and observed statistic</p>
   </div>
 
-   <div style="flex: 1; min-width: 300px;">
-      <iframe src="assets/plots/side_obs_test.html" width="100%" height="400" style="border:none;"></iframe>
-      <p style="text-align:center;">Side test statistic distribution and observed statistic</p>
+  <div style="flex: 1; min-width: 300px;">
+    <iframe src="assets/plots/side_obs_test.html" width="100%" height="400" style="border:none;"></iframe>
+    <p style="text-align:center;">Side test statistic distribution and observed statistic</p>
   </div>
 
 </div>
 
-For `gamelength`, the observed mean difference of 604.1 seconds between matches with missing `golddiffat25` and those without is highly significant (p < 0.001). This indicates that shorter matches are more likely to have missing `golddiffat25` values, suggesting that missingness is not MCAR, and may be MAR with respect to game length.  
-These results suggest that missingness in `golddiffat25` is highly likely to be MAR, dependent on observable numeric variables like `gamelength` but unrelated to categorical variables like `side`.
+<p>For <code>gamelength</code>, the observed mean difference of 604.1 seconds between matches with missing <code>golddiffat25</code> and those without is highly significant (p &lt; 0.001). This indicates that shorter matches are more likely to have missing <code>golddiffat25</code> values, suggesting that missingness is not MCAR, and may be MAR with respect to game length.  
+These results suggest that missingness in <code>golddiffat25</code> is highly likely to be MAR, dependent on observable numeric variables like <code>gamelength</code> but unrelated to categorical variables like <code>side</code>.</p>
 
-The orange histogram (matches with missing `golddiffat25`) is shifted slightly toward shorter games compared to the blue histogram (matches where `golddiffat25` is present). Shorter games seem to be more prone to missing mid-game gold differences.
+<p>The orange histogram (matches with missing <code>golddiffat25</code>) is shifted slightly toward shorter games compared to the blue histogram (matches where <code>golddiffat25</code> is present). Shorter games seem to be more prone to missing mid-game gold differences.</p>
 
-The histogram shows the null distribution of absolute mean differences under randomly permuted missingness indicators. The dashed line marks the observed difference of 604.1 seconds, which is quite far away from the rest of the null distribution, which implies a statistically significant association between missingness and game length.
+<p>The histogram shows the null distribution of absolute mean differences under randomly permuted missingness indicators. The dashed line marks the observed difference of 604.1 seconds, which is far outside the bulk of the null distribution, confirming a statistically significant association between missingness and game length.</p>
 
-For `side`, the observed TVD of 0 with a p-value of 1.0 shows that the distribution of blue/red sides is identical for missing and non-missing rows, meaning that `side` does not influence missingness. This can also be seen in the graph above
+<p>For <code>side</code>, the observed TVD of 0 with a p-value of 1.0 shows that the distribution of blue/red sides is identical for missing and non-missing rows, meaning that <code>side</code> does not influence missingness. This can also be seen in the graph above.</p>
+
 
 ## Model
 
