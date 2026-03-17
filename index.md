@@ -169,7 +169,9 @@ This provides strong evidence that teams with a gold advantage at 15 minutes ten
 
 ## Framing a Prediction Problem
 
-Our prediction task is to predict whether a team will win or lose a professional League of Legends match using only information available at the 15-minute mark. This is a binary classification problem, since the response variable result takes values 1 for wins and 0 for losses. We chose this target because it matches the central question of the project: whether early-game information is predictive of eventual outcomes. We evaluate models using accuracy and F1-score. Accuracy is easy to interpret as the overall fraction of correctly predicted match outcomes, while F1-score balances precision and recall and is helpful in case one type of classification error becomes more common than the other. At the time of prediction, we would know only early-game information such as gold, XP, CS, side, and first-blood status, so we restrict features to variables available by 15 minutes.
+Our prediction task is to predict whether a team will win or lose a professional League of Legends match using only information available at the 15-minute mark. This is a binary classification problem, since the response variable `result` takes values 1 for wins and 0 for losses. We chose this target because it matches the central question of the project: whether early-game information is predictive of eventual outcomes.  
+We evaluate models using `accuracy` and `F1-score`. `Accuracy` is easy to interpret as the overall fraction of correctly predicted match outcomes, while `F1-score` balances precision and recall and is helpful in case one type of classification error becomes more common than the other.  
+At the time of prediction, we would know only early-game information such as `golddiffat15`, `xpdiffat15`, `csdiffat15`, `side`, and `firstblood`, so we restrict features to variables available by 15 minutes.
 
 ## Baseline Model
 ## Final Model
