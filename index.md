@@ -100,7 +100,7 @@ This table shows the average early-game gold advantage for blue and red sides in
 
 The first 5 rows of the pivot table are shown above. The full table contains 44 rows.
 
-## Missingness Analysis
+## Assessment of Missingness
 
 ### MNAR Analysis
 
@@ -156,8 +156,8 @@ These results suggest that missingness in <code>golddiffat25</code> is highly li
 <p>For <code>side</code>, the observed TVD of 0 with a p-value of 1.0 shows that the distribution of blue/red sides is identical for missing and non-missing rows, meaning that <code>side</code> does not influence missingness. This can also be seen in the graph above.</p>
 
 
-## Model
-
-## Results
-
-## Conclusion
+## Hypothesis Testing
+## Framing a Prediction Problem
+## Baseline Model
+## Final Model
+## Fairness Analysis
